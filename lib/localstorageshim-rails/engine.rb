@@ -1,12 +1,12 @@
 module Localstorageshim
   module Rails
     class Engine < ::Rails::Engine
-      initializer "ransack_ui.view_helpers" do
+      initializer "localstorageshim-rails.view_helpers" do
         ActionView::Base.send :include, ViewHelpers
       end
 
-      initializer :assets do
-        # Precompile asset since it's a conditional include
+      config.before_configuration do
+        # Precompile localstorageshim.js separately since it's a conditional include
         ::Rails.application.config.assets.precompile += %w(localstorageshim.js)
       end
     end
